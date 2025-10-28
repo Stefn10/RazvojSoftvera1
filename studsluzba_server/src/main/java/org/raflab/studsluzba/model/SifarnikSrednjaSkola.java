@@ -1,4 +1,4 @@
 package org.raflab.studsluzba.model;
 
-public class Sifarnik {
+public class SifarnikSrednjaSkola {
 }

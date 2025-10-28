@@ -34,3 +34,13 @@ public class Nastavnik {
 	 private String jmbg;
 
 }
+
+
+/*
+Za nastavnika se čuva ime, prezime, srednje ime, email, podaci o obrazovanju
+(visokoškolske ustanove na kojoj je završio sve nivoe studija) i svaki nastavnik u toku svog rada može
+imati različita saradnička i nastavnička zvanja (prvo asistent, zatim docent, vanredni profesor, ...).
+Za nastavnika treba upamtiti sva zvanja u kojima je bio i to za svako zvanje se čuva datum izbora, uža
+naučna oblast i sam naziv zvanja (asistent, docent,...).
+
+ */

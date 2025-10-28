@@ -4,13 +4,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class SrednjaSkola {
+public class VrstaStudija {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    private String naziv;
-    private String mesto;
-    private String vrsta;
+    private String skraceniNaziv; //MAS
+    private String punNaziv; //Master Akademske Studije
 
 }

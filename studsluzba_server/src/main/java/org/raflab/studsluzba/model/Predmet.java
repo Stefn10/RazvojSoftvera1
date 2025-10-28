@@ -23,9 +23,13 @@ public class Predmet {
 	private String naziv;
 	private String opis;
 	private Integer espb;
+    private Integer semestar;
+    private Integer fondCasovaVezbe;
+    private Integer fondCasovaPredavanja;
 	@ManyToOne
 	private StudijskiProgram studProgram;
 	private boolean obavezan;
+
 
 	@Override
 	public int hashCode() {
