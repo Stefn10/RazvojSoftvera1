@@ -4,10 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
-public class SrednjaSkola {
+public class VisokoskolskaUstanova {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,7 +19,6 @@ public class SrednjaSkola {
     private Long sifarnik;
     private LocalDate datumUpisa;
     private LocalDate datumZavrsetka;
-    private int uspehSaPrijemnog;
-//    private int uspehIzSrednjeSkole; TODO kako ovo treba da se implementira
+    private List<Ispit> polozeniIspiti; //Todo ako je student presao sa drugog fakulteta treba da mu se prenesu i priznaju ispiti
 
 }

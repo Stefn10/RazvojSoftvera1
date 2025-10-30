@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -32,5 +33,10 @@ public class Nastavnik {
 	 private LocalDate datumRodjenja;
 	 private Character pol;
 	 private String jmbg;
+
+	@OneToMany
+	private List<SrednjaSkola> srednjaSkole;
+	@OneToMany
+	private List<VisokoskolskaUstanova> fakulteti;
 
 }
