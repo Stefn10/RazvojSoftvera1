@@ -13,13 +13,21 @@ public class Ispit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate datum_drzavanja;
-    private LocalTime vreme_odrzavanja;
-    @OneToMany
-    private Predmet ispitniPredmet;
-//    @ManyToOne
-//    @JoinColumn(name = "nastavnik_id")
-//    private Nastavnik nastavnik;
+    private LocalDate datumOdrzavanja;
+    private LocalTime vremePocetka;
+
+    @ManyToOne
+    @JoinColumn(name = "drziPredmet_id")
+    private DrziPredmet drziPredmet;
+
+    @ManyToOne
+    @JoinColumn(name = "ispitni_rok_id")
+    private IspitniRok ispitniRok;
+
+    @ManyToOne
+    @JoinColumn(name = "skolska_godina_id")
+    private SkolskaGodina skolskaGodina;
+
     private boolean zakljucen;
 
 }

@@ -20,5 +20,7 @@ public class SlusaPredmet {
 	
 	@ManyToOne
 	private DrziPredmet drziPredmet;
+	
+	private int predispitniBodovi;
 
 }

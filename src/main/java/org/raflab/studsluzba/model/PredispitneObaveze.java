@@ -12,6 +12,8 @@ public class PredispitneObaveze {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String naziv;
+    private int maxBodova;
 
     @ManyToOne
     private SlusaPredmet slusaPredmet;
