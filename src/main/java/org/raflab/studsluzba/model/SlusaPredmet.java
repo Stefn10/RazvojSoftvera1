@@ -20,7 +20,11 @@ public class SlusaPredmet {
 	
 	@ManyToOne
 	private DrziPredmet drziPredmet;
-	
-	private int predispitniBodovi;
 
+	public enum Status {
+		SLUSA,
+		PRIZNAT,
+		OBNAVLJA,
+		ZAVRSIO;
+	}
 }

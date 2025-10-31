@@ -23,7 +23,7 @@ public class SkolskaGodina {
     @OneToMany
     private List<StudijskiProgram> studijskiProgrami;
     @OneToMany(mappedBy = "skolskaGodina")
-    private DrziPredmet drziPredmet;
+    private List<DrziPredmet> drziPredmeti = new ArrayList<>();
     private boolean aktivna;
 
 }

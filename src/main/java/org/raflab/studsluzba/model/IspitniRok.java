@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +23,8 @@ public class IspitniRok {
     private Long id;
     private LocalDate datumPocetka;
     private LocalDate datumZavrsetka;
-    @Enumerated(EnumType.STRING)
-    private IspitniRokTip tip;
+// Da li je potrebno neku anotaciju staviti
+    private int tipRoka; // sifarnik: Januar, Februar...
 
     @ManyToOne
     @JoinColumn(name = "skolska_godina_id")
@@ -34,11 +32,4 @@ public class IspitniRok {
 
     @OneToMany(mappedBy = "ispitniRok", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ispit> ispiti = new ArrayList<>();
-
-    public enum IspitniRokTip {
-        JANUAR,
-        FEBRUAR,
-        JUN,
-        SEPTEMBAR
-    }
 }
