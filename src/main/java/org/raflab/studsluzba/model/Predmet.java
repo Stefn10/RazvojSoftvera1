@@ -1,5 +1,8 @@
 package org.raflab.studsluzba.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.Data;
@@ -7,7 +10,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"studProgram"})
+@ToString
 public class Predmet {
 	
 	@Id
@@ -19,7 +22,16 @@ public class Predmet {
 	private String opis;
 	private Integer espb;
 	@ManyToOne
+	// @ToString.Exclude  // Prevent circular reference in toString()
 	private StudijskiProgram studProgram;
+	
+	@OneToMany(mappedBy = "predmet")
+	// @ToString.Exclude  // Prevent circular reference in toString()
+	private List<DrziPredmet> drziPredmeti = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "predmet")
+	// @ToString.Exclude  // Prevent circular reference in toString()
+	private List<Ispit> ispiti = new ArrayList<>();
 	private boolean obavezan;
 //	@ManyToOne
 //	@JoinColumn(name = "ispit_id")

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -21,16 +22,20 @@ public class StudentIndeks {
 	private boolean aktivan; 
 	private LocalDate vaziOd;
 	@ManyToOne
+	// @ToString.Exclude  // Prevent circular reference in toString()
 	private StudentPodaci student;
 	
 	@ManyToOne
+	// @ToString.Exclude  // Prevent circular reference in toString()
 	private StudijskiProgram studijskiProgram;   // na koji studijski program je upisan
 	private Integer ostvarenoEspb;
 
 	@ManyToOne
+	// @ToString.Exclude  // Prevent circular reference in toString()
 	private Grupa grupa;
 
 	@OneToMany(mappedBy = "studentIndeks", cascade = CascadeType.ALL)
+	// @ToString.Exclude  // Prevent circular reference in toString()
 // TODO	@OrderBy("godina, datumUpisa DESC")
 	private List<UpisGodine> upisiGodina = new ArrayList<>();
 

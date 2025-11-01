@@ -1,11 +1,13 @@
 package org.raflab.studsluzba.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -25,13 +27,16 @@ public class StudijskiProgram {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "studProgram")
-	private List<Predmet> predmeti;
+	// @ToString.Exclude  // Prevent circular reference in toString()
+	private List<Predmet> predmeti = new ArrayList<>();
 
 	@OneToMany(mappedBy = "studijskiProgram")
-    private List<StudentIndeks> studentIndeksi;
+    // @ToString.Exclude  // Prevent circular reference in toString()
+    private List<StudentIndeks> studentIndeksi = new ArrayList<>();
 
     @OneToMany(mappedBy = "studijskiProgram")
-    private List<Grupa> grupe;
+    @ToString.Exclude  // Prevent circular reference in toString()
+    private List<Grupa> grupe = new ArrayList<>();
 
 
 }
