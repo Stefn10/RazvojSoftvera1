@@ -15,6 +15,7 @@ public class Ispit {
     private Long id;
     private LocalDate datumOdrzavanja;
     private LocalTime vremePocetka;
+    private LocalTime vremeZavrsetka;
 
     @ManyToOne
     @JoinColumn(name = "drziPredmet_id")
