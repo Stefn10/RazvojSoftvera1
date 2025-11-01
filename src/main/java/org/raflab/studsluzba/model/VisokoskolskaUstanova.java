@@ -3,22 +3,31 @@ package org.raflab.studsluzba.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
 public class VisokoskolskaUstanova {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String naziv;
     private String tipSkole;
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long sifarnik;
-    private LocalDate datumUpisa;
-    private LocalDate datumZavrsetka;
-    private List<Ispit> polozeniIspiti; //Todo ako je student presao sa drugog fakulteta treba da mu se prenesu i priznaju ispiti
+
+    @Column(nullable = false, unique = true, updatable = false)
+    private String sifarnik;
+
+    @OneToMany(mappedBy = "visokaUstanova")
+    private List<StudentVisokaUstanova> prenosi = new ArrayList<>();
+
+    @PrePersist
+    private void ensureSifarnik() {
+        if (sifarnik == null || sifarnik.isBlank()) {
+            sifarnik = UUID.randomUUID().toString();
+        }
+    }
 
 }

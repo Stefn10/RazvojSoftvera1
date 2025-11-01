@@ -16,26 +16,26 @@ import javax.persistence.*;
 @ToString(exclude = "zvanja")
 @EqualsAndHashCode(exclude = "zvanja")
 public class Nastavnik {
-	 
-	 @Id
-	 @GeneratedValue(strategy=GenerationType.IDENTITY)
-	 private Long id;
-	 private String ime;
-	 private String prezime;
-	 private String srednjeIme;
-	 private String email;
-	 private String brojTelefona;
-	 private String adresa;
 
-	 @OneToMany(mappedBy = "nastavnik", fetch = FetchType.EAGER)
-	 private Set<NastavnikZvanje> zvanja;
-	 
-	 private LocalDate datumRodjenja;
-	 private Character pol;
-	 private String jmbg;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String ime;
+	private String prezime;
+	private String srednjeIme;
+	private String email;
+	private String brojTelefona;
+	private String adresa;
 
-	@OneToMany
-	private List<SrednjaSkola> srednjaSkole;
+	@OneToMany(mappedBy = "nastavnik", fetch = FetchType.EAGER)
+	private Set<NastavnikZvanje> zvanja;
+
+	private LocalDate datumRodjenja;
+	private Character pol;
+	private String jmbg;
+
+//	@OneToMany
+//	private List<SrednjaSkola> srednjaSkole;
 	@OneToMany
 	private List<VisokoskolskaUstanova> fakulteti;
 

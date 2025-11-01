@@ -25,4 +25,7 @@ public class StudentIndeks {
 	private StudijskiProgram studijskiProgram;   // na koji studijski program je upisan
 	private Integer ostvarenoEspb;
 
+	@ManyToOne
+	private Grupa grupa;
+
 }

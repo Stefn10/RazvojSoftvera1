@@ -26,4 +26,12 @@ public class StudijskiProgram {
 	@JsonIgnore
 	@OneToMany(mappedBy = "studProgram")
 	private List<Predmet> predmeti;
+
+	@OneToMany(mappedBy = "studijskiProgram")
+    private List<StudentIndeks> studentIndeksi;
+
+    @OneToMany(mappedBy = "studijskiProgram")
+    private List<Grupa> grupe;
+
+
 }

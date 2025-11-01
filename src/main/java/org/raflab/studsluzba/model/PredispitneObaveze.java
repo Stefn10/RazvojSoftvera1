@@ -12,9 +12,15 @@ public class PredispitneObaveze {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private enum Vrsta {
+
+    @Enumerated(EnumType.STRING)
+    private Vrsta vrsta;
+
+    public enum Vrsta {
         KOL1,
         KOL2,
+        POPRAVNI_KOL1,
+        POPRAVNI_KOL2,
         DOMACI,
         PROJEKAT;
     }
