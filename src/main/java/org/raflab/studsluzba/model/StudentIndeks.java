@@ -1,6 +1,8 @@
 package org.raflab.studsluzba.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -27,5 +29,9 @@ public class StudentIndeks {
 
 	@ManyToOne
 	private Grupa grupa;
+
+	@OneToMany(mappedBy = "studentIndeks", cascade = CascadeType.ALL)
+// TODO	@OrderBy("godina, datumUpisa DESC")
+	private List<UpisGodine> upisiGodina = new ArrayList<>();
 
 }
