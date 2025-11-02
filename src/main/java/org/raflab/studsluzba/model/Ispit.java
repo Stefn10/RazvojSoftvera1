@@ -20,9 +20,9 @@ public class Ispit {
     @JoinColumn(name = "drziPredmet_id")
     private DrziPredmet drziPredmet;
 
-    // @ManyToOne
-    // @JoinColumn(name = "predmet_id", nullable = false)
-    // private Predmet predmet;
+    @ManyToOne
+    @JoinColumn(name = "predmet_id", nullable = false)
+    private Predmet predmet;
 
     @ManyToOne
     @JoinColumn(name = "ispitni_rok_id")

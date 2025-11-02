@@ -21,6 +21,8 @@ public class Predmet {
 	private String naziv;
 	private String opis;
 	private Integer espb;
+	private boolean obavezan;
+
 	@ManyToOne
 	// @ToString.Exclude // Prevent circular reference in toString()
 	private StudijskiProgram studProgram;
@@ -32,7 +34,6 @@ public class Predmet {
 	@OneToMany(mappedBy = "predmet")
 	// @ToString.Exclude // Prevent circular reference in toString()
 	private List<Ispit> ispiti = new ArrayList<>();
-	private boolean obavezan;
 
 	@OneToMany(mappedBy = "predmet")
 	private List<SlusaPredmet> slusaPredmet;

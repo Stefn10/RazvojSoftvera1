@@ -30,6 +30,9 @@ public class SkolskaGodina {
     @OneToMany(mappedBy = "skolskaGodina")
     private List<Uplata> uplate;
 
+    @OneToMany(mappedBy = "skolskaGodina")
+    private List<Grupa> grupe = new ArrayList<>();
+
     private boolean aktivna;
 
 }

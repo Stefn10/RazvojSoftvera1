@@ -29,8 +29,11 @@ public class PredispitneObaveze {
 
 
     @ManyToOne
+    @JoinColumn(name = "slusa_predmet_id")
     private SlusaPredmet slusaPredmet;
+    
     @ManyToOne
+    @JoinColumn(name = "skolska_godina_id")
     private SkolskaGodina skolskaGodina;
 
 }

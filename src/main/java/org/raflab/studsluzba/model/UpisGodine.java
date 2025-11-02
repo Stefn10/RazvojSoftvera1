@@ -15,6 +15,7 @@ public class UpisGodine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate datumUpisa;
+    private Integer godina;  // koja se godina upisuje (1, 2, 3, 4...)
     private Integer prenetiESPB;
 
     @ManyToOne

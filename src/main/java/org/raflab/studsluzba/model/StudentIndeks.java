@@ -34,11 +34,13 @@ public class StudentIndeks {
 	private List<Uplata> uplate = new ArrayList<>();
 
 	@ManyToOne
+	@JoinColumn(name = "studijski_program_id")
 	// @ToString.Exclude
 	private StudijskiProgram studijskiProgram;   // na koji studijski program je upisan
 	private Integer ostvarenoEspb;
 
 	@ManyToOne
+	@JoinColumn(name = "grupa_id")
 	// @ToString.Exclude
 	private Grupa grupa;
 

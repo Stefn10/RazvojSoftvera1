@@ -15,7 +15,12 @@ public class Grupa {
 	private Long id;
 	
 	@ManyToOne
+	@JoinColumn(name = "studijski_program_id")
 	private StudijskiProgram studijskiProgram;
+
+	@ManyToOne
+	@JoinColumn(name = "skolska_godina_id")
+	private SkolskaGodina skolskaGodina;
 
 	@OneToMany(mappedBy = "grupa")
 	private List<DrziPredmet> drziPredmeti;

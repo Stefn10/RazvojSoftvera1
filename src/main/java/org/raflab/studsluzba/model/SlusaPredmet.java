@@ -19,17 +19,24 @@ public class SlusaPredmet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
+	@JoinColumn(name = "student_indeks_id")
 	private StudentIndeks studentIndeks;
 
 	@ManyToOne
+	@JoinColumn(name = "drzi_predmet_id")
 	private DrziPredmet drziPredmet;
 
 	@ManyToOne
+	@JoinColumn(name = "student_visoka_ustanova_id")
 	private StudentVisokaUstanova studentVisokaUstanova;
 
 	@ManyToOne
 	@JoinColumn(name = "predmet_id") 
 	private Predmet predmet;
+
+	@ManyToOne
+	@JoinColumn(name = "upis_godine_id")
+	private UpisGodine upisGodine;  // moze biti iz obnove ili priznat 
 
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.SLUSA;
