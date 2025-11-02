@@ -16,17 +16,8 @@ public class PredispitneObaveze {
     @Enumerated(EnumType.STRING)
     private Vrsta vrsta;
 
-    public enum Vrsta {
-        KOL1,
-        KOL2,
-        POPRAVNI_KOL1,
-        POPRAVNI_KOL2,
-        DOMACI,
-        PROJEKAT;
-    }
     private int maxBodova;
     private int osvojeniBodovi;
-
 
     @ManyToOne
     @JoinColumn(name = "slusa_predmet_id")
@@ -35,5 +26,14 @@ public class PredispitneObaveze {
     @ManyToOne
     @JoinColumn(name = "skolska_godina_id")
     private SkolskaGodina skolskaGodina;
+
+    public enum Vrsta {
+        KOL1,
+        KOL2,
+        POPRAVNI_KOL1,
+        POPRAVNI_KOL2,
+        DOMACI,
+        PROJEKAT;
+    }
 
 }

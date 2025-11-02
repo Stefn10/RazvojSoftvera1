@@ -1,5 +1,10 @@
 # Analiza veza između entiteta u Model folderu
 
+### Pogledati Ispod
+### ⚠️ PREOSTALO:
+7. **PROBLEM 2**: `PredispitneObaveze` nema direktnu vezu sa `Predmet` (nije kritično, pristupa se preko `SlusaPredmet.predmet`)
+8. **PROBLEM 8**: Redundatne veze u `SlusaPredmet` - zahteva pažljivo upravljanje konzistentnošću
+
 ## ✅ DOBRO POvezano
 
 ### 1. Student struktura
@@ -172,20 +177,32 @@ private SkolskaGodina skolskaGodina;
 private Grupa grupa;
 ```
 
-### ⚠️ PROBLEM 8: SlusaPredmet ima redundatne veze
+### ✅ PROBLEM 8: SlusaPredmet ima redundatne veze - REŠENO
 **Trenutno stanje:**
 - `SlusaPredmet` ima i `DrziPredmet` i direktnu vezu sa `Predmet`
 - `DrziPredmet` već ima vezu sa `Predmet`
 - **Sada IMA** i vezu sa `UpisGodine` ✅
+- **Dodata automatska sinhronizacija** kroz `@PrePersist` i `@PreUpdate` metode ✅
 
-**Problem:**
-- Redundanca može dovesti do nekonzistentnosti podataka
-- Potrebno osigurati da `SlusaPredmet.predmet` i `SlusaPredmet.drziPredmet.predmet` uvek pokazuju na isti predmet
+**Rešenje:**
+Dodata metoda `synchronizePredmet()` u `SlusaPredmet` entitet koja automatski osigurava konzistentnost:
+```java
+@PrePersist
+@PreUpdate
+private void synchronizePredmet() {
+    if (drziPredmet != null && drziPredmet.getPredmet() != null) {
+        // Automatski postavlja predmet na osnovu drziPredmet.predmet
+        if (predmet == null || !predmet.getId().equals(drziPredmet.getPredmet().getId())) {
+            predmet = drziPredmet.getPredmet();
+        }
+    }
+}
+```
 
-**Preporuka:**
-Razmotriti uklanjanje direktne veze sa `Predmet` i koristiti `drziPredmet.predmet`. Ako se zadrži, osigurati da su konzistentni pri kreiranju `SlusaPredmet` entiteta.
-
-**Napomena:** Direktna veza sa `Predmet` može biti korisna za brže upite, ali zahteva pažljivo upravljanje konzistentnošću.
+**Rezultat:**
+- ✅ Direktna veza sa `Predmet` je zadržana za brže upite (direktan pristup za prikaz obaveza)
+- ✅ Automatska sinhronizacija osigurava konzistentnost podataka
+- ✅ Nema potrebe za ručnom validacijom pri kreiranju entiteta
 
 ---
 
@@ -200,10 +217,10 @@ Razmotriti uklanjanje direktne veze sa `Predmet` i koristiti `drziPredmet.predme
 4. **PROBLEM 5**: ✅ Aktivirana direktna veza `Ispit` ↔ `Predmet`
 5. **PROBLEM 6**: ✅ Dodate `@JoinColumn` anotacije u `StudentIndeks`
 6. **PROBLEM 7**: ✅ Dodate `@JoinColumn` anotacije u `DrziPredmet` i dodata veza sa `Grupa`
+7. **PROBLEM 8**: ✅ Dodata automatska sinhronizacija u `SlusaPredmet` za konzistentnost redundantnih veza
 
 ### ⚠️ PREOSTALO:
-7. **PROBLEM 2**: Direktna veza `PredispitneObaveze` ↔ `Predmet` (nije kritično, može se rešiti preko SlusaPredmet)
-8. **PROBLEM 8**: Redundatne veze u `SlusaPredmet` - zahteva pažljivo upravljanje konzistentnošću
+8. **PROBLEM 2**: `PredispitneObaveze` nema direktnu vezu sa `Predmet` (nije kritično, pristupa se preko `SlusaPredmet.predmet`)
 
 ## 📈 REZIME PROMENA
 
@@ -227,8 +244,8 @@ Razmotriti uklanjanje direktne veze sa `Predmet` i koristiti `drziPredmet.predme
 - ✅ Svi kritični problemi su rešeni
 - ✅ CascadeType i orphanRemoval su dobro postavljeni gde je potrebno
 - ✅ Eksplicitne `@JoinColumn` anotacije su dodate za bolju kontrolu nad bazom
-- ⚠️ Potrebno osigurati konzistentnost redundantnih veza pri kreiranju entiteta:
-  - `SlusaPredmet.predmet` mora biti isti kao `SlusaPredmet.drziPredmet.predmet`
+- ✅ Automatska sinhronizacija redundantnih veza u `SlusaPredmet` kroz `@PrePersist` i `@PreUpdate`
+- ⚠️ Potrebno osigurati konzistentnost redundantnih veza u `Ispit` pri kreiranju entiteta:
   - `Ispit.predmet` mora biti isti kao `Ispit.drziPredmet.predmet`
 
 ## ✅ FINALNO STANJE

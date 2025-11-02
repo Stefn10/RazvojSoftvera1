@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import lombok.Data;
 
@@ -40,6 +42,29 @@ public class SlusaPredmet {
 
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.SLUSA;
+
+	/**TODO Ovo izbaciti ako ne bude trebalo.
+	 * 
+	 * 
+	 * Automatski sinhronizuje predmet na osnovu drziPredmet.predmet
+	 * pre čuvanja ili ažuriranja entiteta.
+	 * Osigurava konzistentnost između redundantnih veza.
+	 * Direktna veza sa Predmet je zadržana za brže upite (direktan pristup za prikaz obaveza).
+	 */
+	@PrePersist
+	@PreUpdate
+	private void synchronizePredmet() {
+		if (drziPredmet != null && drziPredmet.getPredmet() != null) {
+			// Ako predmet nije postavljen ili se razlikuje, automatski ga postavi
+			if (predmet == null || !predmet.getId().equals(drziPredmet.getPredmet().getId())) {
+				predmet = drziPredmet.getPredmet();
+			}
+		} else if (drziPredmet == null && predmet != null) {
+			// Ako je postavljen predmet ali ne i drziPredmet, to je validno stanje
+			// (može biti priznat predmet bez drziPredmet)
+			// Ne diramo ništa
+		}
+	}
 
 	public enum Status {
 		SLUSA,
