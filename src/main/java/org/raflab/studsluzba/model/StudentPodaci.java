@@ -35,6 +35,9 @@ public class StudentPodaci {
 	private String adresaStanovanja; // u toku studija
 
 	@OneToMany(mappedBy = "student")
+	private List<StudentIndeks> indeksi;
+
+	@OneToMany(mappedBy = "student")
 	private List<StudentSrednjaSkola> srednjeSkole;
 	@OneToMany(mappedBy = "student")
 	private List<StudentVisokaUstanova> visokeUstanove;

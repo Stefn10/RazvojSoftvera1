@@ -1,6 +1,5 @@
 package org.raflab.studsluzba.model;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +19,10 @@ public class Ispit {
     @ManyToOne
     @JoinColumn(name = "drziPredmet_id")
     private DrziPredmet drziPredmet;
+
+    // @ManyToOne
+    // @JoinColumn(name = "predmet_id", nullable = false)
+    // private Predmet predmet;
 
     @ManyToOne
     @JoinColumn(name = "ispitni_rok_id")

@@ -39,6 +39,8 @@ public class IspitniRok {
         JANUAR,
         FEBRUAR,
         JUN,
+        JUL,
+        AVGUST,
         SEPTEMBAR
     }
 }

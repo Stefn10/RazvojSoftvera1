@@ -21,21 +21,29 @@ public class StudentIndeks {
 	private String nacinFinansiranja;
 	private boolean aktivan; 
 	private LocalDate vaziOd;
+	
 	@ManyToOne
+	@JoinColumn(name = "student_podaci_id") 
 	// @ToString.Exclude  // Prevent circular reference in toString()
 	private StudentPodaci student;
 	
+	@OneToMany(mappedBy = "studentIndeks")
+	private List<SlusaPredmet> slusaPredmeti = new ArrayList<>();
+
+	@OneToMany(mappedBy = "studentIndeks")
+	private List<Uplata> uplate = new ArrayList<>();
+
 	@ManyToOne
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude
 	private StudijskiProgram studijskiProgram;   // na koji studijski program je upisan
 	private Integer ostvarenoEspb;
 
 	@ManyToOne
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude
 	private Grupa grupa;
 
 	@OneToMany(mappedBy = "studentIndeks", cascade = CascadeType.ALL)
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude S
 // TODO	@OrderBy("godina, datumUpisa DESC")
 	private List<UpisGodine> upisiGodina = new ArrayList<>();
 

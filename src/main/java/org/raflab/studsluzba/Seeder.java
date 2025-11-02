@@ -4,31 +4,27 @@ import org.raflab.studsluzba.model.*;
 import org.raflab.studsluzba.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @Component
+@AllArgsConstructor
 public class Seeder implements CommandLineRunner {
 
-    @Autowired
     private StudijskiProgramRepository studijskiProgramRepository;
-    @Autowired
     private PredmetRepository predmetRepository;
-    @Autowired
     private NastavnikRepository nastavnikRepository;
-    @Autowired
     private NastavnikZvanjeRepository nastavnikZvanjeRepository;
-    @Autowired
     private StudentPodaciRepository studentPodaciRepository;
-    @Autowired
     private StudentIndeksRepository studentIndeksRepository;
-    @Autowired
     private DrziPredmetRepository drziPredmetRepository;
-    @Autowired
     private SlusaPredmetRepository slusaPredmetRepository;
-    @Autowired
+
     private GrupaRepository grupaRepository;
 
     @Override

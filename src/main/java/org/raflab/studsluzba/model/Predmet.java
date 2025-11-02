@@ -12,30 +12,30 @@ import lombok.ToString;
 @Data
 @ToString
 public class Predmet {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String sifra;
 	private String naziv;
 	private String opis;
 	private Integer espb;
 	@ManyToOne
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude // Prevent circular reference in toString()
 	private StudijskiProgram studProgram;
-	
+
 	@OneToMany(mappedBy = "predmet")
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude // Prevent circular reference in toString()
 	private List<DrziPredmet> drziPredmeti = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "predmet")
-	// @ToString.Exclude  // Prevent circular reference in toString()
+	// @ToString.Exclude // Prevent circular reference in toString()
 	private List<Ispit> ispiti = new ArrayList<>();
 	private boolean obavezan;
-//	@ManyToOne
-//	@JoinColumn(name = "ispit_id")
-//	private Ispit ispit;
+
+	@OneToMany(mappedBy = "predmet")
+	private List<SlusaPredmet> slusaPredmet;
 
 	@Override
 	public int hashCode() {
@@ -44,6 +44,7 @@ public class Predmet {
 		result = prime * result + ((sifra == null) ? 0 : sifra.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

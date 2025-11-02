@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,9 @@ public class Nastavnik {
 
 	@OneToMany(mappedBy = "nastavnik", fetch = FetchType.EAGER)
 	private Set<NastavnikZvanje> zvanja;
+
+	@OneToMany(mappedBy = "nastavnik", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<NastavnikObrazovanje> obrazovanje = new ArrayList<>();
 
 	private LocalDate datumRodjenja;
 	private Character pol;

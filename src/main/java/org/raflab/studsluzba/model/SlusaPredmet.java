@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -25,6 +26,10 @@ public class SlusaPredmet {
 
 	@ManyToOne
 	private StudentVisokaUstanova studentVisokaUstanova;
+
+	@ManyToOne
+	@JoinColumn(name = "predmet_id") 
+	private Predmet predmet;
 
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.SLUSA;
