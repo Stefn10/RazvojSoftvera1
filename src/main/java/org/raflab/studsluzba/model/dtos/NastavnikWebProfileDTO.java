@@ -11,16 +11,11 @@ import org.raflab.studsluzba.model.StudentIndeks;
  * sadrži:
  *  - predmete koje nastavnik predaje u aktivnoj skolskoj godini 
  *  - spiskove studenata koji slusaju predmet
- *  - ispite koje nastavnik drzi u aktivnim rokovima (rokovi za koje je počela prijava
- *  - spiskove prijavljenih studenata po ispitima
- *  
- *  
  */
 
 public class NastavnikWebProfileDTO {
-	
+
 	private List<Predmet> predmeti;
 	private Map<Predmet,List<StudentIndeks>> slusajuPredmete;
-	
 
 }

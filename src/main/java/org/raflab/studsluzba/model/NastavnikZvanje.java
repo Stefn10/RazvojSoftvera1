@@ -1,6 +1,5 @@
 package org.raflab.studsluzba.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -23,8 +22,6 @@ public class NastavnikZvanje {
 	private String uzaNaucnaOblast;  // sifarnik na klijentu - tabela u bazi bez veze
 	private String zvanje;   // sifarnik na klijentu - tabela u bazi bez veze
 	private boolean aktivno;
-
 	@ManyToOne
-	@JsonIgnore
 	private Nastavnik nastavnik;
 }

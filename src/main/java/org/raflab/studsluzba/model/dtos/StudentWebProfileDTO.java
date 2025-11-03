@@ -8,10 +8,9 @@ import org.raflab.studsluzba.model.StudentIndeks;
 
 @Data
 public class StudentWebProfileDTO {
-	
+
 	private StudentIndeks aktivanIndeks;	
 
 	// za aktivnu skolsku godinu
 	private List<SlusaPredmet> slusaPredmete;
-	
 }

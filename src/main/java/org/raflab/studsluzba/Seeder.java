@@ -4,31 +4,44 @@ import org.raflab.studsluzba.model.*;
 import org.raflab.studsluzba.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
 
+//CommandLineRunner je Spring Boot interfejs koji omogućava da se izvrši kod odmah nakon pokretanja aplikacije,
+// tj. nakon što je Spring konteјner kompletno podignut.
+//Koristi se najčešće za inicijalizaciju podataka, testiranje, pokretanje skripti ili bilo koji startup zadatak.
 @Component
 @AllArgsConstructor
 public class Seeder implements CommandLineRunner {
 
-    private StudijskiProgramRepository studijskiProgramRepository;
-    private PredmetRepository predmetRepository;
-    private NastavnikRepository nastavnikRepository;
-    private NastavnikZvanjeRepository nastavnikZvanjeRepository;
-    private StudentPodaciRepository studentPodaciRepository;
-    private StudentIndeksRepository studentIndeksRepository;
-    private DrziPredmetRepository drziPredmetRepository;
-    private SlusaPredmetRepository slusaPredmetRepository;
-
-    private GrupaRepository grupaRepository;
+    private final StudijskiProgramRepository studijskiProgramRepository;
+    private final PredmetRepository predmetRepository;
+    private final NastavnikRepository nastavnikRepository;
+    private final NastavnikZvanjeRepository nastavnikZvanjeRepository;
+    private final StudentPodaciRepository studentPodaciRepository;
+    private final StudentIndeksRepository studentIndeksRepository;
+    private final DrziPredmetRepository drziPredmetRepository;
+    private final SlusaPredmetRepository slusaPredmetRepository;
+    private final GrupaRepository grupaRepository;
+    private final SkolskaGodinaRepository skolskaGodinaRepository;
+    private final UpisGodineRepository upisGodineRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        // Skip seeding if data already exists
+        if (studijskiProgramRepository.count() > 0) {
+            System.out.println("Database already contains data. Skipping seeder.");
+            return;
+        }
+
+        // Create SkolskaGodina first (required by many entities)
+        SkolskaGodina skolskaGodina = new SkolskaGodina();
+        skolskaGodina.setNaziv("2023/2024");
+        skolskaGodina.setAktivna(true);
+        skolskaGodina = skolskaGodinaRepository.save(skolskaGodina);
+
         List<StudijskiProgram> spList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             StudijskiProgram sp = new StudijskiProgram();
@@ -40,6 +53,7 @@ public class Seeder implements CommandLineRunner {
             sp.setTrajanjeSemestara(8);
             sp.setVrstaStudija("OAS");
             sp.setUkupnoEspb(240);
+            sp.setSkolskaGodina(skolskaGodina);
             spList.add(studijskiProgramRepository.save(sp));
         }
 
@@ -122,7 +136,20 @@ public class Seeder implements CommandLineRunner {
             DrziPredmet dp = new DrziPredmet();
             dp.setNastavnik(nastavnikList.get(i - 1));
             dp.setPredmet(predmetList.get(i - 1));
+            dp.setSkolskaGodina(skolskaGodina);
             drziPredmetList.add(drziPredmetRepository.save(dp));
+        }
+
+        // Create UpisGodine for each student
+        List<UpisGodine> upisGodineList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            UpisGodine ug = new UpisGodine();
+            ug.setDatumUpisa(LocalDate.of(2023, 10, i));
+            ug.setGodina(1);
+            ug.setPrenetiESPB(0);
+            ug.setStudentIndeks(indeksList.get(i - 1));
+            ug.setSkolskaGodina(skolskaGodina);
+            upisGodineList.add(upisGodineRepository.save(ug));
         }
 
         List<SlusaPredmet> slusaPredmetList = new ArrayList<>();
@@ -130,6 +157,7 @@ public class Seeder implements CommandLineRunner {
             SlusaPredmet sl = new SlusaPredmet();
             sl.setStudentIndeks(indeksList.get(i - 1));
             sl.setDrziPredmet(drziPredmetList.get(i - 1));
+            sl.setUpisGodine(upisGodineList.get(i - 1));
             slusaPredmetList.add(slusaPredmetRepository.save(sl));
         }
 
@@ -137,6 +165,7 @@ public class Seeder implements CommandLineRunner {
             Grupa g = new Grupa();
             g.setStudijskiProgram(spList.get(i - 1));
             g.setPredmeti(Collections.singletonList(predmetList.get(i - 1)));
+            g.setSkolskaGodina(skolskaGodina);
             grupaRepository.save(g);
         }
     }

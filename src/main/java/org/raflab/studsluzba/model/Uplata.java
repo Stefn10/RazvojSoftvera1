@@ -3,8 +3,6 @@ package org.raflab.studsluzba.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity

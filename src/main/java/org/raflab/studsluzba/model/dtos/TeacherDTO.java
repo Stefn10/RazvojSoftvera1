@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class TeacherDTO {
+
     private Integer id;
     private String email;
     private String firstName;

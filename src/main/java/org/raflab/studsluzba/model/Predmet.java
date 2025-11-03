@@ -1,42 +1,31 @@
 package org.raflab.studsluzba.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.ToString;
 
 @Entity
 @Data
-@ToString
+@ToString(exclude = {"studProgram"})
 public class Predmet {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-
+	
 	private String sifra;
 	private String naziv;
 	private String opis;
 	private Integer espb;
-	private boolean obavezan;
-
 	@ManyToOne
-	// @ToString.Exclude // Prevent circular reference in toString()
 	private StudijskiProgram studProgram;
-
-	@OneToMany(mappedBy = "predmet")
-	// @ToString.Exclude // Prevent circular reference in toString()
-	private List<DrziPredmet> drziPredmeti = new ArrayList<>();
-
-	@OneToMany(mappedBy = "predmet")
-	// @ToString.Exclude // Prevent circular reference in toString()
-	private List<Ispit> ispiti = new ArrayList<>();
-
-	@OneToMany(mappedBy = "predmet")
-	private List<SlusaPredmet> slusaPredmet;
+	private boolean obavezan;
 
 	@Override
 	public int hashCode() {
@@ -45,7 +34,6 @@ public class Predmet {
 		result = prime * result + ((sifra == null) ? 0 : sifra.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -62,5 +50,4 @@ public class Predmet {
 			return false;
 		return true;
 	}
-
 }
