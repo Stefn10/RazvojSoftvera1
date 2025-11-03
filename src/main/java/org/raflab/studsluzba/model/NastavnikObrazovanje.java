@@ -1,8 +1,11 @@
 package org.raflab.studsluzba.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class NastavnikObrazovanje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
